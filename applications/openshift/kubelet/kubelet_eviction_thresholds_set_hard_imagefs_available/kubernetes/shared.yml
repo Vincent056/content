@@ -1,0 +1,7 @@
+# platform = multi_platform_all
+# reboot = true
+# strategy = configure
+# complexity = low
+# disruption = low
+
+{{{ kubernetes_kubelet_config_top_parameter(top_parameter="evictionHard", parameter="imagefs.available", variable="var_kubelet_evictionhard_imagefs_available") }}}
