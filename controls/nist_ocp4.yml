@@ -15785,6 +15785,14 @@ controls:
   levels:
   - high
   - moderate
+- id: SI-6(d)
+  status: automated
+  notes: |-
+    The OpenShift platform provides the File Integrity Operator to monitor for unwanted
+    file changes, and this control ensures proper notification alert is enabled so that system
+    administrators and security personnel are notified about the alerts
+  rules:
+  -  file_integrity_notification_enabled
 - id: SI-6(1)
   status: not applicable
   notes: |-
