@@ -633,6 +633,9 @@ plugin_dir = /etc/audit/plugins.d
 {{% macro kubernetes_machineconfig_chrony_config() -%}}
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
+metadata:
+  annotations:
+    complianceascode.io/value-input-required: var_multiple_time_servers
 spec:
   config:
     ignition:
