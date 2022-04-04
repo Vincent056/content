@@ -7274,6 +7274,429 @@ add <code>vsyscall=none</code> to <code>/etc/kernel/cmdline</code>.</td>
 </td>
 </tr>
 <tr>
+<td>CCE-86779-6</td>
+<td>Do not allow ACPI methods to be inserted/replaced at run time</td>
+<td>This debug facility allows ACPI AML methods to be inserted and/or replaced without rebooting
+the system.
+This configuration is available from kernel 3.0.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_ACPI_CUSTOM_METHOD</code>, run the following command:
+    <code>grep CONFIG_ACPI_CUSTOM_METHOD /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88963-4</td>
+<td>Disable compatibility with brk()</td>
+<td>Enabling compatiliby with <code>brk()</code> allows legacy binaries to run (i.e. those linked
+against libc5). But this compatibility comes at the cost of not being able to randomize
+the heap placement (ASLR).
+
+Unless legacy binaries need to run on the system, set <code>CONFIG_COMPAT_BRK</code> to <code>"n"</code>.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_COMPAT_BRK</code>, run the following command:
+    <code>grep CONFIG_COMPAT_BRK /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87257-2</td>
+<td>Disable the 32-bit vDSO</td>
+<td>Certain buggy versions of glibc (2.3.3) will crash if they are presented with a 32-bit vDSO
+that is not mapped at the address indicated in its segment table.
+Setting <code>CONFIG_COMPAT_VDSO</code> to <code>y</code> turns off the 32-bit VDSO and works
+aroud the glibc bug.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_COMPAT_VDSO</code>, run the following command:
+    <code>grep CONFIG_COMPAT_VDSO /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-89033-5</td>
+<td>Disable kernel debugfs</td>
+<td>
+<code>debugfs</code> is a virtual file system that kernel developers use to put debugging files
+into. Enable this option to be able to read and write to these files.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_DEBUG_FS</code>, run the following command:
+    <code>grep CONFIG_DEBUG_FS /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88032-8</td>
+<td>Warn on W+X mappings found at boot</td>
+<td>Generate a warning if any W+X mappings are found at boot.
+This configuration is available from kernel 5.8.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_DEBUG_WX</code>, run the following command:
+    <code>grep CONFIG_DEBUG_WX /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-86948-7</td>
+<td>Disable /dev/kmem virtual device support</td>
+<td>Disable support for the /dev/kmem device.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_DEVKMEM</code>, run the following command:
+    <code>grep CONFIG_DEVKMEM /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-86546-9</td>
+<td>Harden common str/mem functions against buffer overflows</td>
+<td>Detect overflows of buffers in common string and memory functions where the compiler can
+determine and validate the buffer sizes.
+This configuration is available from kernel 4.13, but may be available if backported by distros.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_FORTIFY_SOURCE</code>, run the following command:
+    <code>grep CONFIG_FORTIFY_SOURCE /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-89299-2</td>
+<td>Harden memory copies between kernel and userspace</td>
+<td>This option checks for obviously wrong memory regions when copying memory to/from the kernel
+(via copy_to_user() and copy_from_user() functions) by rejecting memory ranges that are larger
+than the specified heap object, span multiple separately allocated pages, are not on the
+process stack, or are part of the kernel text.
+This configuration is available from kernel 4.8, and may be available if backported by distros.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_HARDENED_USERCOPY</code>, run the following command:
+    <code>grep CONFIG_HARDENED_USERCOPY /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-86092-4</td>
+<td>Do not allow usercopy whitelist violations to fallback to object size</td>
+<td>This is a temporary option that allows missing usercopy whitelists to be discovered via a WARN()
+to the kernel log, instead of rejecting the copy, falling back to non-whitelisted hardened
+usercopy that checks the slab allocation size instead of the whitelist size.
+This configuration is available from kernel 4.16.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_HARDENED_USERCOPY_FALLBACK</code>, run the following command:
+    <code>grep CONFIG_HARDENED_USERCOPY_FALLBACK /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87650-8</td>
+<td>Disable vsyscall emulation</td>
+<td>The kernel traps and emulates calls into the fixed vsyscall address mapping.
+This configuration is available from kernel 5.3, but may be available if backported by distros.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_LEGACY_VSYSCALL_EMULATE</code>, run the following command:
+    <code>grep CONFIG_LEGACY_VSYSCALL_EMULATE /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87574-0</td>
+<td>Disable vsyscall mapping</td>
+<td>This config disables the vsyscall mapping at all. Attempts to use the vsyscalls will be reported to
+dmesg, so that either old or malicious userspace programs can be identified.
+This configuration is available from kernel 4.4.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_LEGACY_VSYSCALL_NONE</code>, run the following command:
+    <code>grep CONFIG_LEGACY_VSYSCALL_NONE /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87805-8</td>
+<td>Disable vsyscall emulate execution only</td>
+<td>The kernel traps and emulates calls into the fixed vsyscall address mapping and does not allow
+reads.
+This configuration is available from kernel 5.3.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_LEGACY_VSYSCALL_XONLY</code>, run the following command:
+    <code>grep CONFIG_LEGACY_VSYSCALL_XONLY /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88427-0</td>
+<td>Enable poison of pages after freeing</td>
+<td>Fill the pages with poison patterns after free_pages() and verify the patterns before
+alloc_pages. This does have a potential performance impact if enabled with the "page_poison=1"
+kernel boot option.
+This configuration is available from kernel 4.6.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_PAGE_POISONING</code>, run the following command:
+    <code>grep CONFIG_PAGE_POISONING /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88575-6</td>
+<td>Enable poison without sanity check</td>
+<td>Skip the sanity checking on alloc, only fill the pages with poison on free. This reduces some
+of the overhead of the poisoning feature.
+This configuration is available from kernel 4.6.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_PAGE_POISONING_NO_SANITY</code>, run the following command:
+    <code>grep CONFIG_PAGE_POISONING_NO_SANITY /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88809-9</td>
+<td>Use zero for poisoning instead of debugging value</td>
+<td>Instead of using the existing poison value, fill the pages with zeros. This makes it harder to
+detect when errors are occurring due to sanitization but the zeroing at free means that it is
+no longer necessary to write zeros when GFP_ZERO is used on allocation.
+This configuration is available from kernel 4.19.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_PAGE_POISONING_ZERO</code>, run the following command:
+    <code>grep CONFIG_PAGE_POISONING_ZERO /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87106-1</td>
+<td>Disable support for /proc/kkcore</td>
+<td>Provides a virtual ELF core file of the live kernel.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_PROC_KCORE</code>, run the following command:
+    <code>grep CONFIG_PROC_KCORE /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-86423-1</td>
+<td>Perform full reference count validation</td>
+<td>Enabling this switches the refcounting infrastructure from a fast unchecked atomic_t
+implementation to a fully state checked implementation, which can have a slight
+impact in performance.
+This configuration is available from kernel 4.13, but may be available if backported
+by distros.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_REFCOUNT_FULL</code>, run the following command:
+    <code>grep CONFIG_REFCOUNT_FULL /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87495-8</td>
+<td>Avoid speculative indirect branches in kernel</td>
+<td>Compile kernel with the retpoline compiler options to guard against kernel-to-user data leaks
+by avoiding speculative indirect branches.
+Requires a compiler with -mindirect-branch=thunk-extern support for full protection.
+The kernel may run slower.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_RETPOLINE</code>, run the following command:
+    <code>grep CONFIG_RETPOLINE /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-89041-8</td>
+<td>Detect stack corruption on calls to schedule()</td>
+<td>This option checks for a stack overrun on calls to schedule(). If the stack end location is
+found to be overwritten always panic as the content of the corrupted region can no longer
+be trusted.
+This configuration is available from kernel 3.18.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_SCHED_STACK_END_CHECK</code>, run the following command:
+    <code>grep CONFIG_SCHED_STACK_END_CHECK /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87340-6</td>
+<td>Restrict unprivileged access to the kernel syslog</td>
+<td>Enforce restrictions on unprivileged users reading the kernel syslog via dmesg(8).
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_SECURITY_DMESG_RESTRICT</code>, run the following command:
+    <code>grep CONFIG_SECURITY_DMESG_RESTRICT /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87963-5</td>
+<td>Harden slab freelist metadata</td>
+<td>This feature protects integrity of the allocator's metadata.
+This configuration is available from kernel 4.14.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_SLAB_FREELIST_HARDENED</code>, run the following command:
+    <code>grep CONFIG_SLAB_FREELIST_HARDENED /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87726-6</td>
+<td>Randomize slab freelist</td>
+<td>Randomizes the freelist order used on creating new pages.
+This configuration is available from kernel 5.9, but may be available if backported by distros.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_SLAB_FRELIST_RANDOM</code>, run the following command:
+    <code>grep CONFIG_SLAB_FRELIST_RANDOM /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88121-9</td>
+<td>Disallow merge of slab caches</td>
+<td>For reduced kernel memory fragmentation, slab caches can be merged when they share the same
+size and other characteristics. This carries a risk of kernel heap overflows being able to
+overwrite objects from merged caches (and more easily control cache layout), which makes such
+heap attacks easier to exploit by attackers.
+This configuration is available from kernel 4.13.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_SLAB_MERGE_DEFAULT</code>, run the following command:
+    <code>grep CONFIG_SLAB_MERGE_DEFAULT /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-88276-1</td>
+<td>Enale SLUB debugging support</td>
+<td>SLUB has extensive debug support features and this allows the allocator validation checking to
+be enabled.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_SLUB_DEBUG</code>, run the following command:
+    <code>grep CONFIG_SLUB_DEBUG /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-89055-8</td>
+<td>Stack Protector buffer overlow detection</td>
+<td>This feature puts, at the beginning of functions, a canary value on the stack just before the
+return address, and validates the value just before actually returning.
+This configuration is available from kernel 4.18.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_STACKPROTECTOR</code>, run the following command:
+    <code>grep CONFIG_STACKPROTECTOR /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-89036-8</td>
+<td>Strong Stack Protector</td>
+<td>This features adds canary logic protection to more kinds of vulnerable functions than
+CONFIG_STACKPROTECTOR, but not to all functions so that performance is not severily impacted.
+This configuration is available from kernel 4.18.
+This config requires gcc version 4.9 or above, or a distribution gcc with the feature
+backported ("-fstack-protector-strong").
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_STACKPROTECTOR_STRONG</code>, run the following command:
+    <code>grep CONFIG_STACKPROTECTOR_STRONG /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-86993-3</td>
+<td>Make the kernel text and rodata read-only</td>
+<td>When set, kernel text and rodata memory will be made read-only, and non-text memory will be made non-executable.
+This configuration is available from kernel 4.11.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_STRICT_KERNEL_RWX</code>, run the following command:
+    <code>grep CONFIG_STRICT_KERNEL_RWX /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-86252-4</td>
+<td>User a virtually-mapped stack</td>
+<td>Enable this to use virtually-mapped kernel stacks with guard pages.
+This configuration is available from kernel 4.9.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_VMAP_STACK</code>, run the following command:
+    <code>grep CONFIG_VMAP_STACK /boot/config-*</code>
+    
+    For each kernel installed, a line with value "y" should be returned.
+    </td>
+</tr>
+<tr>
+<td>CCE-87884-3</td>
+<td>Disable x86 vsyscall emulation</td>
+<td>Disabling it is roughly equivalent to booting with vsyscall=none, except that it will also
+disable the helpful warning if a program tries to use a vsyscall. With this option set to N,
+offending programs will just segfault, citing addresses of the form 0xffffffffff600?00.
+This configuration is available from kernel 3.19.
+
+The configuration that was used to build kernel is available at <code>/boot/config-*</code>.
+    To check the configuration value for <code>CONFIG_X86_VSYSCALL_EMULATION</code>, run the following command:
+    <code>grep CONFIG_X86_VSYSCALL_EMULATION /boot/config-*</code>
+    
+    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
+    lines should be returned.
+    </td>
+</tr>
+<tr>
 <td>CCE-83987-8</td>
 <td>Ensure rsyslog-gnutls is installed</td>
 <td>TLS protocol support for rsyslog is installed.
