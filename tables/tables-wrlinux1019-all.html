@@ -25046,12 +25046,6 @@
     <li><div class="tooltip">sshd_enable_warning_banner<span class="tooltiptext">Enable SSH Warning Banner</span></div></li>
     <li><div class="tooltip">sshd_enable_warning_banner_net<span class="tooltiptext">Enable SSH Warning Banner</span></div></li>
     </ul>
-  <li class="collapsible">SRG-OS-000024-GPOS-00007</li>
-    <ul class="content">
-    <li><div class="tooltip">banner_etc_issue<span class="tooltiptext">Modify the System Login Banner</span></div></li>
-    <li><div class="tooltip">sshd_enable_warning_banner<span class="tooltiptext">Enable SSH Warning Banner</span></div></li>
-    <li><div class="tooltip">sshd_enable_warning_banner_net<span class="tooltiptext">Enable SSH Warning Banner</span></div></li>
-    </ul>
   <li class="collapsible">SRG-OS-000027-GPOS-00008</li>
     <ul class="content">
     <li><div class="tooltip">accounts_max_concurrent_login_sessions<span class="tooltiptext">Limit the Number of Concurrent Login Sessions Allowed Per User</span></div></li>
@@ -25470,6 +25464,10 @@
     <ul class="content">
     <li><div class="tooltip">sysctl_kernel_kptr_restrict<span class="tooltiptext">Restrict Exposed Kernel Pointer Addresses Access</span></div></li>
     </ul>
+  <li class="collapsible">SRG-OS-000134-GPOS-00068</li>
+    <ul class="content">
+    <li><div class="tooltip">selinux_state<span class="tooltiptext">Ensure SELinux State is Enforcing</span></div></li>
+    </ul>
   <li class="collapsible">SRG-OS-000138-GPOS-00069</li>
     <ul class="content">
     <li><div class="tooltip">dir_perms_world_writable_root_owned<span class="tooltiptext">Ensure All World-Writable Directories Are Owned by root user</span></div></li>
@@ -25502,13 +25500,13 @@
     <li><div class="tooltip">file_owner_var_log<span class="tooltiptext">Verify User Who Owns /var/log Directory</span></div></li>
     <li><div class="tooltip">file_owner_var_log_messages<span class="tooltiptext">Verify User Who Owns /var/log/messages File</span></div></li>
     <li><div class="tooltip">file_owner_var_log_syslog<span class="tooltiptext">Verify User Who Owns /var/log/syslog File</span></div></li>
-    <li><div class="tooltip">file_ownership_var_log_audit<span class="tooltiptext">System Audit Logs Must Be Owned By Root</span></div></li>
     <li><div class="tooltip">file_permissions_var_log<span class="tooltiptext">Verify Permissions on /var/log Directory</span></div></li>
     <li><div class="tooltip">file_permissions_var_log_messages<span class="tooltiptext">Verify Permissions on /var/log/messages File</span></div></li>
     <li><div class="tooltip">file_permissions_var_log_syslog<span class="tooltiptext">Verify Permissions on /var/log/syslog File</span></div></li>
     </ul>
   <li class="collapsible">SRG-OS-000228-GPOS-00088</li>
     <ul class="content">
+    <li><div class="tooltip">banner_etc_issue<span class="tooltiptext">Modify the System Login Banner</span></div></li>
     <li><div class="tooltip">sshd_enable_warning_banner<span class="tooltiptext">Enable SSH Warning Banner</span></div></li>
     <li><div class="tooltip">sshd_enable_warning_banner_net<span class="tooltiptext">Enable SSH Warning Banner</span></div></li>
     </ul>
@@ -25885,29 +25883,20 @@
     <li><div class="tooltip">package_openssh-server_installed<span class="tooltiptext">Install the OpenSSH Server Package</span></div></li>
     <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
     </ul>
-  <li class="collapsible">SRG-OS-000423-GPOS-00188</li>
-    <ul class="content">
-    <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
-    </ul>
-  <li class="collapsible">SRG-OS-000423-GPOS-00189</li>
-    <ul class="content">
-    <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
-    </ul>
-  <li class="collapsible">SRG-OS-000423-GPOS-00190</li>
-    <ul class="content">
-    <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
-    </ul>
   <li class="collapsible">SRG-OS-000424-GPOS-00188</li>
     <ul class="content">
     <li><div class="tooltip">package_openssh-server_installed<span class="tooltiptext">Install the OpenSSH Server Package</span></div></li>
+    <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
     </ul>
   <li class="collapsible">SRG-OS-000425-GPOS-00189</li>
     <ul class="content">
     <li><div class="tooltip">package_openssh-server_installed<span class="tooltiptext">Install the OpenSSH Server Package</span></div></li>
+    <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
     </ul>
   <li class="collapsible">SRG-OS-000426-GPOS-00190</li>
     <ul class="content">
     <li><div class="tooltip">package_openssh-server_installed<span class="tooltiptext">Install the OpenSSH Server Package</span></div></li>
+    <li><div class="tooltip">service_sshd_enabled<span class="tooltiptext">Enable the OpenSSH Service</span></div></li>
     </ul>
   <li class="collapsible">SRG-OS-000433-GPOS-00192</li>
     <ul class="content">
@@ -26218,10 +26207,6 @@
     <li><div class="tooltip">rsyslog_encrypt_offload_actionsendstreamdrivermode<span class="tooltiptext">Ensure Rsyslog Encrypts Off-Loaded Audit Records</span></div></li>
     <li><div class="tooltip">rsyslog_encrypt_offload_defaultnetstreamdriver<span class="tooltiptext">Ensure Rsyslog Encrypts Off-Loaded Audit Records</span></div></li>
     <li><div class="tooltip">rsyslog_remote_loghost<span class="tooltiptext">Ensure Logs Sent To Remote Host</span></div></li>
-    </ul>
-  <li class="collapsible">SRG-OS-000480-GPOS-00225</li>
-    <ul class="content">
-    <li><div class="tooltip">accounts_password_pam_retry<span class="tooltiptext">Ensure PAM Enforces Password Requirements - Authentication Retry Prompts Permitted Per-Session</span></div></li>
     </ul>
   <li class="collapsible">SRG-OS-000480-GPOS-00226</li>
     <ul class="content">

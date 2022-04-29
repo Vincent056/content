@@ -591,7 +591,7 @@ attacks.
 <br><br>
 Password complexity is one factor of several that determines how long it takes
 to crack a password. The more complex the password, the greater the number of
-possble combinations that need to be tested before the password is compromised.
+possible combinations that need to be tested before the password is compromised.
 Requiring a minimum number of special characters makes password guessing attacks
 more difficult by ensuring a larger search space.</td>
 <td>The pam_pwquality module's <code>ocredit=</code> parameter controls requirements for
@@ -4500,7 +4500,8 @@ Detailed information on encrypting partitions using LUKS or LUKS ciphers can be 
 the Red Hat Enterprise Linux 8 Documentation web site:<br>
 
     
-    <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/encrypting-block-devices-using-luks_security-hardening">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/encrypting-block-devices-using-luks_security-hardening</a>.</td>
+    <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/encrypting-block-devices-using-luks_security-hardening">https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/encrypting-block-devices-using-luks_security-hardening</a>
+.</td>
 <td></td>
 <td>SRG-OS-000185-GPOS-00079<br>SRG-OS-000404-GPOS-00183<br>SRG-OS-000405-GPOS-00184<br>
 </td>
@@ -4558,6 +4559,42 @@ packages, set the <code>localpkg_gpgcheck</code> to <code>1</code> in <code>/etc
 <td>SRG-OS-000366-GPOS-00153<br>
 </td>
 <td>CCI-001749<br>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>file_audit_tools_group_ownership</td>
+<td>medium</td>
+<td>Audit Tools Must Be Group-owned by Root</td>
+<td>Protecting audit information also includes identifying and protecting the tools used to view and manipulate log data.
+Therefore, protecting audit tools is necessary to prevent unauthorized operations on audit information.</td>
+<td>Red Hat Enterprise Linux 8 systems providing tools to interface with audit information will leverage user permissions and roles identifying the user accessing the tools, and the corresponding rights the user enjoys, to make access decisions regarding the access to audit tools.
+
+Audit tools include, but are not limited to, vendor-provided and open source audit tools needed to successfully view and manipulate audit information system activity and records. Audit tools include custom queries and report generators.
+
+Audit tools must have the correct group owner.</td>
+<td></td>
+<td>SRG-OS-000256-GPOS-00097<br>
+</td>
+<td>CCI-001493<br>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>file_audit_tools_ownership</td>
+<td>medium</td>
+<td>Audit Tools Must Be Owned by Root</td>
+<td>Protecting audit information also includes identifying and protecting the tools used to view and manipulate log data.
+Therefore, protecting audit tools is necessary to prevent unauthorized operations on audit information.</td>
+<td>Red Hat Enterprise Linux 8 systems providing tools to interface with audit information will leverage user permissions and roles identifying the user accessing the tools, and the corresponding rights the user enjoys, to make access decisions regarding the access to audit tools.
+
+Audit tools include, but are not limited to, vendor-provided and open source audit tools needed to successfully view and manipulate audit information system activity and records. Audit tools include custom queries and report generators.
+
+Audit tools must have the correct owner.</td>
+<td></td>
+<td>SRG-OS-000256-GPOS-00097<br>
+</td>
+<td>CCI-001493<br>
 </td>
 <td></td>
 </tr>
@@ -5090,7 +5127,7 @@ ensures it is set for every process during boot.</td>
 prior to the audit daemon, add the argument <code>audit=1</code> to the default
 GRUB 2 command line for the Linux operating system.
 To ensure that <code>audit=1</code> is added as a kernel command line
-argument to newly installed kernels, ad <code>audit=1</code> to the
+argument to newly installed kernels, add <code>audit=1</code> to the
 default Grub2 command line for Linux operating systems.  Modify the line within
 <code>/etc/default/grub</code> as shown below:
 <pre>GRUB_CMDLINE_LINUX="... audit=1 ..."</pre>
@@ -5115,7 +5152,7 @@ defined by audit failure flag is taken.</td>
 prior to the audit daemon, add the argument <code>audit_backlog_limit=8192</code> to the default
 GRUB 2 command line for the Linux operating system.
 To ensure that <code>audit_backlog_limit=8192</code> is added as a kernel command line
-argument to newly installed kernels, ad <code>audit_backlog_limit=8192</code> to the
+argument to newly installed kernels, add <code>audit_backlog_limit=8192</code> to the
 default Grub2 command line for Linux operating systems.  Modify the line within
 <code>/etc/default/grub</code> as shown below:
 <pre>GRUB_CMDLINE_LINUX="... audit_backlog_limit=8192 ..."</pre>
@@ -5141,7 +5178,7 @@ Also prevents leak of data and detection of corrupted memory.</td>
 add the argument <code>page_poison=1</code> to the default
 GRUB 2 command line for the Linux operating system.
 To ensure that <code>page_poison=1</code> is added as a kernel command line
-argument to newly installed kernels, ad <code>page_poison=1</code> to the
+argument to newly installed kernels, add <code>page_poison=1</code> to the
 default Grub2 command line for Linux operating systems.  Modify the line within
 <code>/etc/default/grub</code> as shown below:
 <pre>GRUB_CMDLINE_LINUX="... page_poison=1 ..."</pre>
@@ -5192,7 +5229,7 @@ randomization (KASLR).</td>
 add the argument <code>pti=on</code> to the default
 GRUB 2 command line for the Linux operating system.
 To ensure that <code>pti=on</code> is added as a kernel command line
-argument to newly installed kernels, ad <code>pti=on</code> to the
+argument to newly installed kernels, add <code>pti=on</code> to the
 default Grub2 command line for Linux operating systems.  Modify the line within
 <code>/etc/default/grub</code> as shown below:
 <pre>GRUB_CMDLINE_LINUX="... pti=on ..."</pre>
@@ -5218,7 +5255,7 @@ Also prevents leak of data and detection of corrupted memory.</td>
 add the argument <code>slub_debug=P</code> to the default
 GRUB 2 command line for the Linux operating system.
 To ensure that <code>slub_debug=P</code> is added as a kernel command line
-argument to newly installed kernels, ad <code>slub_debug=P</code> to the
+argument to newly installed kernels, add <code>slub_debug=P</code> to the
 default Grub2 command line for Linux operating systems.  Modify the line within
 <code>/etc/default/grub</code> as shown below:
 <pre>GRUB_CMDLINE_LINUX="... slub_debug=P ..."</pre>
@@ -5296,7 +5333,7 @@ of the return instruction pointer.</td>
 add the argument <code>vsyscall=none</code> to the default
 GRUB 2 command line for the Linux operating system.
 To ensure that <code>vsyscall=none</code> is added as a kernel command line
-argument to newly installed kernels, ad <code>vsyscall=none</code> to the
+argument to newly installed kernels, add <code>vsyscall=none</code> to the
 default Grub2 command line for Linux operating systems.  Modify the line within
 <code>/etc/default/grub</code> as shown below:
 <pre>GRUB_CMDLINE_LINUX="... vsyscall=none ..."</pre>
@@ -6590,9 +6627,9 @@ computer viruses, as well as to limit their spread to other systems.</td>
 which is provided for DoD systems and uses signatures to search for the
 presence of viruses on the filesystem.
 
-The <code>mcafeetp</code> package can be installed with the following command:
+The <code>McAfeeTP</code> package can be installed with the following command:
 <pre>
-$ sudo yum install mcafeetp</pre>
+$ sudo yum install McAfeeTP</pre>
 </td>
 <td></td>
 <td>SRG-OS-000191-GPOS-00080<br>
@@ -8078,12 +8115,12 @@ the following line in
 <tr>
 <td>sssd_certificate_verification</td>
 <td>medium</td>
-<td>Certificate certificate status checking in SSSD</td>
-<td>Enusring that multifactor solutions certificates are checked via Online Certificate Status Protocol (OCSP)
+<td>Certificate status checking in SSSD</td>
+<td>Ensuring that multifactor solutions certificates are checked via Online Certificate Status Protocol (OCSP)
 ensures the security of the system.</td>
 <td>Multifactor solutions that require devices separate from information systems gaining access include,
 for example, hardware tokens providing time-based or challenge-response authenticators and smart cards.
-By configuring <code>certificate_verification</code> to <code>ocsp_dgst=sha1</code> sures that certificates for
+Configuring <code>certificate_verification</code> to <code>ocsp_dgst=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_sssd_certificate_verification_digest_function"></xccdf-1.1:sub></code> ensures that certificates for
 multifactor solutions are checked via Online Certificate Status Protocol (OCSP).</td>
 <td></td>
 <td>SRG-OS-000375-GPOS-00160<br>
@@ -8862,12 +8899,11 @@ and ad hoc networks will allow an attacker to spoof a wireless access point
 attacker to monitor and record network traffic. These malicious APs can also
 serve to create a man-in-the-middle attack or be used to create a denial of
 service to valid network resources.</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable all wireless network interfaces with the
-following command:
+Configure the system to disable all wireless network interfaces with the following command:
 <pre>$ sudo nmcli radio all off</pre>
 </td>
 <td></td>

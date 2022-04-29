@@ -441,7 +441,7 @@ attacks.
 <br><br>
 Password complexity is one factor of several that determines how long it takes
 to crack a password. The more complex the password, the greater the number of
-possble combinations that need to be tested before the password is compromised.
+possible combinations that need to be tested before the password is compromised.
 Requiring a minimum number of special characters makes password guessing attacks
 more difficult by ensuring a larger search space.</td>
 <td>The pam_pwquality module's <code>ocredit=</code> parameter controls requirements for
@@ -4124,7 +4124,7 @@ Finally, rebuild the <code>grub.cfg</code> file by using the
 <pre>~]# grub2-mkconfig -o /boot/grub2/grub.cfg</pre>
 </li>
 <li>On UEFI-based machines, issue the following command as <code>root</code>:
-<pre>~]# grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg</pre>
+<pre>~]# grub2-mkconfig -o /boot/grub2/grub.cfg</pre>
 </li>
 </ul>
 </td>
@@ -4724,9 +4724,9 @@ computer viruses, as well as to limit their spread to other systems.</td>
 which is provided for DoD systems and uses signatures to search for the
 presence of viruses on the filesystem.
 
-The <code>mcafeetp</code> package can be installed with the following command:
+The <code>McAfeeTP</code> package can be installed with the following command:
 <pre>
-$ sudo yum install mcafeetp</pre>
+$ sudo yum install McAfeeTP</pre>
 </td>
 <td></td>
 <td>SRG-OS-000191-GPOS-00080<br>
@@ -6718,12 +6718,11 @@ and ad hoc networks will allow an attacker to spoof a wireless access point
 attacker to monitor and record network traffic. These malicious APs can also
 serve to create a man-in-the-middle attack or be used to create a denial of
 service to valid network resources.</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable all wireless network interfaces with the
-following command:
+Configure the system to disable all wireless network interfaces with the following command:
 <pre>$ sudo nmcli radio all off</pre>
 </td>
 <td></td>

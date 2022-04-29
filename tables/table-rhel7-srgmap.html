@@ -376,94 +376,7 @@ appropriate system-wide warning banner.</td>
 <td>The banner must be acknowledged by the user prior to allowing the user access to the operating system. This provides assurance that the user has seen the message and accepted the conditions for access. If the consent banner is not acknowledged by the user, DoD will not be in compliance with system use notifications required by law.
 
 To establish acceptance of the application usage policy, a click-through banner at system logon is required. The system must prevent further activity until the user executes a positive action to manifest agreement by clicking on a box indicating "OK".</td>
-<td>
-<table><tr>
-<td>Modify the System Login Banner</td>
-<td>
-To configure the system login banner edit <code>/etc/issue</code>. Replace the
-default text with a message compliant with the local site policy or a legal
-disclaimer.
-
-
-The DoD required text is either:
-<br><br>
-<code>You are accessing a U.S. Government (USG) Information System (IS) that
-is provided for USG-authorized use only. By using this IS (which includes
-any device attached to this IS), you consent to the following conditions:
-<br>-The USG routinely intercepts and monitors communications on this IS
-for purposes including, but not limited to, penetration testing, COMSEC
-monitoring, network operations and defense, personnel misconduct (PM), law
-enforcement (LE), and counterintelligence (CI) investigations.
-<br>-At any time, the USG may inspect and seize data stored on this IS.
-<br>-Communications using, or data stored on, this IS are not private,
-are subject to routine monitoring, interception, and search, and may be
-disclosed or used for any USG-authorized purpose.
-<br>-This IS includes security measures (e.g., authentication and access
-controls) to protect USG interests -- not for your personal benefit or
-privacy.
-<br>-Notwithstanding the above, using this IS does not constitute consent
-to PM, LE or CI investigative searching or monitoring of the content of
-privileged communications, or work product, related to personal
-representation or services by attorneys, psychotherapists, or clergy, and
-their assistants. Such communications and work product are private and
-confidential. See User Agreement for details.</code>
-<br><br>
-OR:
-<br><br>
-<code>I've read &amp; consent to terms in IS user agreem't.</code>
-</td>
-</tr></table>
-<table><tr>
-<td>Enable GNOME3 Login Warning Banner</td>
-<td>In the default graphical environment, displaying a login warning banner
-in the GNOME Display Manager's login screen can be enabled on the login
-screen by setting <code>banner-message-enable</code> to <code>true</code>.
-<br><br>
-To enable, add or edit <code>banner-message-enable</code> to
-<code>/etc/dconf/db/gdm.d/00-security-settings</code>. For example:
-<pre>[org/gnome/login-screen]
-banner-message-enable=true</pre>
-Once the setting has been added, add a lock to
-<code>/etc/dconf/db/gdm.d/locks/00-security-settings-lock</code> to prevent user modification.
-For example:
-<pre>/org/gnome/login-screen/banner-message-enable</pre>
-After the settings have been set, run <code>dconf update</code>.
-The banner text must also be set.</td>
-</tr></table>
-<table><tr>
-<td>Set the GNOME3 Login Warning Banner Text</td>
-<td>In the default graphical environment, configuring the login warning banner text
-in the GNOME Display Manager's login screen can be configured on the login
-screen by setting <code>banner-message-text</code> to <code>'<i>APPROVED_BANNER</i>'</code>
-where <i>APPROVED_BANNER</i> is the approved banner for your environment.
-<br><br>
-To enable, add or edit <code>banner-message-text</code> to
-
-<code>/etc/dconf/db/gdm.d/00-security-settings</code>. For example:
-<pre>[org/gnome/login-screen]
-banner-message-text='<i>APPROVED_BANNER</i>'</pre>
-Once the setting has been added, add a lock to
-<code>/etc/dconf/db/gdm.d/locks/00-security-settings-lock</code> to prevent user modification.
-For example:
-<pre>/org/gnome/login-screen/banner-message-text</pre>
-
-After the settings have been set, run <code>dconf update</code>.
-When entering a warning banner that spans several lines, remember
-to begin and end the string with <code>'</code> and use <code>\n</code> for new lines.</td>
-</tr></table>
-<table><tr>
-<td>Enable SSH Warning Banner</td>
-<td>To enable the warning banner and ensure it is consistent
-across the system, add or correct the following line in
-
-
-<code>/etc/ssh/sshd_config</code>:
-
-<pre>Banner /etc/issue</pre>
-Another section contains information on how to create an
-appropriate system-wide warning banner.</td>
-</tr></table>
-</td>
+<td></td>
 </tr>
 <tr>
 <td>V-56629</td>
@@ -5342,7 +5255,14 @@ An example of this type of separation is observed in web administrative interfac
 Security functions are the hardware, software, and/or firmware of the information system responsible for enforcing the system security policy and supporting the isolation of code and data on which the protection is based. Operating systems implement code separation (i.e., separation of security functions from nonsecurity functions) in a number of ways, including through the provision of security kernels via processor rings or processor modes. For non-kernel code, security function isolation is often achieved through file system protections that serve to protect the code on disk and address space protections that protect executing code.
 
 Developers and implementers can increase the assurance in security functions by employing well-defined security policy models; structured, disciplined, and rigorous hardware and software development techniques; and sound system/security engineering principles. Implementation may include isolation of memory space and libraries. Operating systems restrict access to security functions through the use of access control mechanisms and by implementing least privilege capabilities.</td>
-<td></td>
+<td><table><tr>
+<td>Ensure SELinux State is Enforcing</td>
+<td>The SELinux state should be set to <code><xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_selinux_state"></xccdf-1.1:sub></code> at
+system boot time.  In the file <code>/etc/selinux/config</code>, add or correct the
+following line to configure the system to boot into enforcing mode:
+<pre>SELINUX=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_selinux_state"></xccdf-1.1:sub></pre>
+</td>
+</tr></table></td>
 </tr>
 <tr>
 <td>V-56853</td>
@@ -5475,9 +5395,9 @@ To support this requirement, the operating system may have an integrated solutio
 which is provided for DoD systems and uses signatures to search for the
 presence of viruses on the filesystem.
 
-The <code>mcafeetp</code> package can be installed with the following command:
+The <code>McAfeeTP</code> package can be installed with the following command:
 <pre>
-$ sudo yum install mcafeetp</pre>
+$ sudo yum install McAfeeTP</pre>
 </td>
 </tr></table>
 <table><tr>
@@ -5506,19 +5426,7 @@ Organizations carefully consider the structure/content of error messages. The ex
 <td>Only authorized personnel should be aware of errors and the details of the errors. Error messages are an indicator of an organization's operational state or can identify the operating system or platform. Additionally, Personally Identifiable Information (PII) and operational information must not be revealed through error messages to unauthorized personnel or their designated representatives.
 
 The structure and content of error messages must be carefully considered by the organization and development team. The extent to which the information system is able to identify and handle error conditions is guided by organizational policy and operational requirements.</td>
-<td>
-<table><tr>
-<td>System Audit Logs Must Be Owned By Root</td>
-<td>All audit logs must be owned by root user and group. By default, the path for audit log is <pre>/var/log/audit/</pre>.
-
-To properly set the owner of <code>/var/log/audit</code>, run the command:
-<pre>$ sudo chown root /var/log/audit </pre>
-
-To properly set the owner of <code>/var/log/audit/*</code>, run the command:
-<pre>$ sudo chown root /var/log/audit/* </pre>
-</td>
-</tr></table>
-<table><tr>
+<td><table><tr>
 <td>System Audit Logs Must Have Mode 0640 or Less Permissive</td>
 <td>If <code>log_group</code> in <code>/etc/audit/auditd.conf</code> is set to a group other than the <code>root</code>
 group account, change the mode of the audit log files with the following command:
@@ -5527,8 +5435,7 @@ group account, change the mode of the audit log files with the following command
 Otherwise, change the mode of the audit log files with the following command:
 <pre>$ sudo chmod 0600 <i>audit_file</i></pre>
 </td>
-</tr></table>
-</td>
+</tr></table></td>
 </tr>
 <tr>
 <td>V-56909</td>
@@ -5559,6 +5466,42 @@ Use the following verbiage for operating systems that have severe limitations on
 
 "I've read &amp; consent to terms in IS user agreem't."</td>
 <td>
+<table><tr>
+<td>Modify the System Login Banner</td>
+<td>
+To configure the system login banner edit <code>/etc/issue</code>. Replace the
+default text with a message compliant with the local site policy or a legal
+disclaimer.
+
+
+The DoD required text is either:
+<br><br>
+<code>You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this IS (which includes
+any device attached to this IS), you consent to the following conditions:
+<br>-The USG routinely intercepts and monitors communications on this IS
+for purposes including, but not limited to, penetration testing, COMSEC
+monitoring, network operations and defense, personnel misconduct (PM), law
+enforcement (LE), and counterintelligence (CI) investigations.
+<br>-At any time, the USG may inspect and seize data stored on this IS.
+<br>-Communications using, or data stored on, this IS are not private,
+are subject to routine monitoring, interception, and search, and may be
+disclosed or used for any USG-authorized purpose.
+<br>-This IS includes security measures (e.g., authentication and access
+controls) to protect USG interests -- not for your personal benefit or
+privacy.
+<br>-Notwithstanding the above, using this IS does not constitute consent
+to PM, LE or CI investigative searching or monitoring of the content of
+privileged communications, or work product, related to personal
+representation or services by attorneys, psychotherapists, or clergy, and
+their assistants. Such communications and work product are private and
+confidential. See User Agreement for details.</code>
+<br><br>
+OR:
+<br><br>
+<code>I've read &amp; consent to terms in IS user agreem't.</code>
+</td>
+</tr></table>
 <table><tr>
 <td>Enable GNOME3 Login Warning Banner</td>
 <td>In the default graphical environment, displaying a login warning banner
@@ -6511,12 +6454,11 @@ Wireless technologies include, for example, microwave, packet radio (UHF/VHF), 8
 This requirement applies to those operating systems that control wireless devices.</td>
 <td><table><tr>
 <td>Deactivate Wireless Network Interfaces</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable all wireless network interfaces with the
-following command:
+Configure the system to disable all wireless network interfaces with the following command:
 <pre>$ sudo nmcli radio all off</pre>
 </td>
 </tr></table></td>
@@ -6533,12 +6475,11 @@ Wireless technologies include, for example, microwave, packet radio (UHF/VHF), 8
 This requirement applies to those operating systems that control wireless devices.</td>
 <td><table><tr>
 <td>Deactivate Wireless Network Interfaces</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable all wireless network interfaces with the
-following command:
+Configure the system to disable all wireless network interfaces with the following command:
 <pre>$ sudo nmcli radio all off</pre>
 </td>
 </tr></table></td>
@@ -7083,21 +7024,7 @@ depending on the OS version.</td>
 <td>If authorized individuals do not have the ability to modify auditing parameters in response to a changing threat environment, the organization may not be able to effectively respond, and important forensic information may be lost.
 
 This requirement enables organizations to extend or limit auditing as necessary to meet organizational requirements. Auditing that is limited to conserve information system resources may be extended to address certain threat situations. In addition, auditing may be limited to a specific set of events to facilitate audit reduction, analysis, and reporting.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>SV-71505</td>
@@ -7279,21 +7206,7 @@ Alerts provide organizations with urgent messages. Real-time alerts provide thes
 <td>The ability to perform on-demand audit review and analysis, including after the audit data has been subjected to audit reduction, greatly facilitates the organization's ability to generate incident reports, as needed, to better handle larger-scale or more complex security incidents.
 
 Audit reduction is a technique used to reduce the volume of audit records in order to facilitate a manual review. Audit reduction does not alter original audit records. The report generation capability provided by the application must support on-demand (i.e., customizable, ad hoc, and as-needed) reports.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>V-57255</td>
@@ -7305,8 +7218,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 Audit reduction capability must support after-the-fact investigations of security incidents either natively or through the use of third-party tools.
 
 This requirement is specific to operating systems with audit reduction capabilities.</td>
-<td>
-<table><tr>
+<td><table><tr>
 <td>Enable auditd Service</td>
 <td>The <code>auditd</code> service is an essential userspace component of
 the Linux Auditing System, as it is responsible for writing audit records to
@@ -7315,23 +7227,7 @@ disk.
 The <code>auditd</code> service can be enabled with the following command:
 <pre>$ sudo systemctl enable auditd.service</pre>
 </td>
-</tr></table>
-<table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table>
-</td>
+</tr></table></td>
 </tr>
 <tr>
 <td>SV-71517</td>
@@ -7341,21 +7237,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 <td>The report generation capability must support on-demand review and analysis in order to facilitate the organization's ability to generate incident reports, as needed, to better handle larger-scale or more complex security incidents.
 
 Report generation must be capable of generating on-demand (i.e., customizable, ad hoc, and as-needed) reports. On-demand reporting allows personnel to report issues more rapidly to more effectively meet reporting requirements. Collecting log data and aggregating it to present the data in a single, consolidated report achieves this objective.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>V-57259</td>
@@ -7365,21 +7247,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 <td>The report generation capability must support on-demand reporting in order to facilitate the organization's ability to generate incident reports, as needed, to better handle larger-scale or more complex security incidents.
 
 Report generation must be capable of generating on-demand (i.e., customizable, ad hoc, and as-needed) reports. On-demand reporting allows personnel to report issues more rapidly to more effectively meet reporting requirements. Collecting log data and aggregating it to present the data in a single, consolidated report achieves this objective.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>V-57261</td>
@@ -7389,21 +7257,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 <td>If the report generation capability does not support after-the-fact investigations, it is difficult to establish, correlate, and investigate the events leading up to an outage or attack or identify those responses for one. This capability is also required to comply with applicable Federal laws and DoD policies.
 
 The report generation capability must support after-the-fact investigations of security incidents either natively or through the use of third-party tools.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>V-57263</td>
@@ -7415,21 +7269,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 Audit reduction is a process that manipulates collected audit information and organizes such information in a summary format that is more meaningful to analysts. Time ordering refers to the chronological organization of records based on time stamps. The degree of time stamp precision can affect this.
 
 This requirement is specific to operating systems providing audit reduction capabilities. The audit reduction capability can be met either natively or through the use of third-party tools.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>SV-71525</td>
@@ -7441,21 +7281,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 Time ordering refers to the chronological organization of records based on time stamps. The degree of time stamp precision can affect this.
 
 This requirement is specific to operating systems providing report generation capabilities. The report generation capability can be met either natively or through the use of third-party tools.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>V-57267</td>
@@ -7513,21 +7339,7 @@ to pass.</td>
 <td>Without sufficient granularity of time stamps, it is not possible to adequately determine the chronological order of records.
 
 Time stamps generated by the operating system include date and time. Granularity of time measurements refers to the degree of synchronization between information system clocks and reference clocks.</td>
-<td><table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>V-57189</td>
@@ -7537,23 +7349,7 @@ If both the "b32" and "b64" audit rules for "SGID" files are not defined, this i
 <td>If time stamps are not consistently applied and there is no common time reference, it is difficult to perform forensic analysis.
 
 Time stamps generated by the operating system include date and time. Time is commonly expressed in Coordinated Universal Time (UTC), a modern continuation of Greenwich Mean Time (GMT), or local time with an offset from UTC.</td>
-<td>
-<table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table>
-<table><tr>
+<td><table><tr>
 <td>Configure Time Service Maxpoll Interval</td>
 <td>The <code>maxpoll</code> should be configured to
 <xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_time_service_set_maxpoll"></xccdf-1.1:sub> in <code>/etc/ntp.conf</code> or
@@ -7565,8 +7361,7 @@ to <pre>server</pre> directives. If using chrony any <pre>pool</pre> directives
 should be configured too.
 If no <code>server</code> or <code>pool</code> directives are configured, the rule evaluates
 to pass.</td>
-</tr></table>
-</td>
+</tr></table></td>
 </tr>
 <tr>
 <td>V-57185</td>
@@ -7702,8 +7497,7 @@ To explicitly disable Kerberos authentication, add or correct the following line
 <td>Without auditing the enforcement of access restrictions against changes to the application configuration, it will be difficult to identify attempted attacks and an audit trail will not be available for forensic investigation for after-the-fact actions.
 
 Enforcement actions are the methods or mechanisms used to prevent unauthorized changes to configuration settings. Enforcement action methods may be as simple as denying access to a file based on the application of file permissions (access restriction). Audit items may consist of lists of actions blocked by access restrictions or changes identified after the fact.</td>
-<td>
-<table><tr>
+<td><table><tr>
 <td>Enable auditd Service</td>
 <td>The <code>auditd</code> service is an essential userspace component of
 the Linux Auditing System, as it is responsible for writing audit records to
@@ -7712,23 +7506,7 @@ disk.
 The <code>auditd</code> service can be enabled with the following command:
 <pre>$ sudo systemctl enable auditd.service</pre>
 </td>
-</tr></table>
-<table><tr>
-<td>Record Events When Privileged Executables Are Run</td>
-<td>Verify the system generates an audit record when privileged functions are executed.
-<pre># grep -iw execve <code>/etc/audit/audit.rules</code></pre>
-
-
-<pre>-a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -k setuid</pre>
-<pre>-a always,exit -F arch=b32 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-<pre>-a always,exit -F arch=b64 -S execve -C gid!=egid -F egid=0 -k setgid</pre>
-
-
-If both the "b32" and "b64" audit rules for "SUID" files are not defined, this is a finding.
-If both the "b32" and "b64" audit rules for "SGID" files are not defined, this is a finding.</td>
-</tr></table>
-</td>
+</tr></table></td>
 </tr>
 <tr>
 <td>V-56849</td>
@@ -9452,12 +9230,11 @@ Alternative physical protection measures include PDS. PDSs are used to transmit 
 <td>
 <table><tr>
 <td>Deactivate Wireless Network Interfaces</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable all wireless network interfaces with the
-following command:
+Configure the system to disable all wireless network interfaces with the following command:
 <pre>$ sudo nmcli radio all off</pre>
 </td>
 </tr></table>
@@ -9467,6 +9244,14 @@ following command:
 The <code>openssh-server</code> package can be installed with the following command:
 <pre>
 $ sudo yum install openssh-server</pre>
+</td>
+</tr></table>
+<table><tr>
+<td>Enable the OpenSSH Service</td>
+<td>The SSH server service, sshd, is commonly needed.
+
+The <code>sshd</code> service can be enabled with the following command:
+<pre>$ sudo systemctl enable sshd.service</pre>
 </td>
 </tr></table>
 </td>
@@ -9481,14 +9266,24 @@ $ sudo yum install openssh-server</pre>
 Ensuring the confidentiality of transmitted information requires the operating system to take measures in preparing information for transmission. This can be accomplished via access control and encryption.
 
 Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When transmitting data, operating systems need to support transmission protection mechanisms such as TLS, SSL VPNs, or IPSec.</td>
-<td><table><tr>
+<td>
+<table><tr>
 <td>Install the OpenSSH Server Package</td>
 <td>The <code>openssh-server</code> package should be installed.
 The <code>openssh-server</code> package can be installed with the following command:
 <pre>
 $ sudo yum install openssh-server</pre>
 </td>
-</tr></table></td>
+</tr></table>
+<table><tr>
+<td>Enable the OpenSSH Service</td>
+<td>The SSH server service, sshd, is commonly needed.
+
+The <code>sshd</code> service can be enabled with the following command:
+<pre>$ sudo systemctl enable sshd.service</pre>
+</td>
+</tr></table>
+</td>
 </tr>
 <tr>
 <td>V-56729</td>
@@ -9500,14 +9295,24 @@ $ sudo yum install openssh-server</pre>
 Ensuring the confidentiality of transmitted information requires the operating system to take measures in preparing information for transmission. This can be accomplished via access control and encryption.
 
 Use of this requirement will be limited to situations where the data owner has a strict requirement for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. When receiving data, operating systems need to leverage protection mechanisms such as TLS, SSL VPNs, or IPSec.</td>
-<td><table><tr>
+<td>
+<table><tr>
 <td>Install the OpenSSH Server Package</td>
 <td>The <code>openssh-server</code> package should be installed.
 The <code>openssh-server</code> package can be installed with the following command:
 <pre>
 $ sudo yum install openssh-server</pre>
 </td>
-</tr></table></td>
+</tr></table>
+<table><tr>
+<td>Enable the OpenSSH Service</td>
+<td>The SSH server service, sshd, is commonly needed.
+
+The <code>sshd</code> service can be enabled with the following command:
+<pre>$ sudo systemctl enable sshd.service</pre>
+</td>
+</tr></table>
+</td>
 </tr>
 <tr>
 <td>V-56727</td>
@@ -13842,19 +13647,7 @@ There must be a resolvable DNS CNAME or Alias record set to "<xccdf-1.1:sub xmln
 <td><i>TBD - Assigned by DISA after STIG release</i></td>
 <td>The operating system must prevent the use of dictionary words for passwords.</td>
 <td>If the operating system allows the user to select passwords based on dictionary words, then this increases the chances of password compromise by increasing the opportunity for successful guesses and brute-force attacks.</td>
-<td><table><tr>
-<td>Ensure PAM Enforces Password Requirements - Authentication Retry Prompts Permitted Per-Session</td>
-<td>To configure the number of retry prompts that are permitted per-session:
-
-Edit the <code>pam_pwquality.so</code> statement in
-
-<code>/etc/pam.d/system-auth</code> to show
-
-
-<code>retry=<xccdf-1.1:sub xmlns:xccdf-1.1="http://checklists.nist.gov/xccdf/1.1" idref="var_password_pam_retry"></xccdf-1.1:sub></code>, or a lower value if site
-policy is more restrictive. The DoD requirement is a maximum of 3 prompts
-per session.</td>
-</tr></table></td>
+<td></td>
 </tr>
 <tr>
 <td>SV-70855</td>
@@ -15032,12 +14825,11 @@ This requirement applies to wireless peripheral technologies (e.g., wireless mic
 Protecting the confidentiality and integrity of communications with wireless peripherals can be accomplished by physical means (e.g., employing physical barriers to wireless radio frequencies) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa. If the wireless peripheral is only passing telemetry data, encryption of the data may not be required.</td>
 <td><table><tr>
 <td>Deactivate Wireless Network Interfaces</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable all wireless network interfaces with the
-following command:
+Configure the system to disable all wireless network interfaces with the following command:
 <pre>$ sudo nmcli radio all off</pre>
 </td>
 </tr></table></td>

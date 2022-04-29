@@ -235,7 +235,7 @@ is not commented out or superseded by later includes:
 OpenSSL is supported by crypto policy, but the OpenSSL configuration may be
 set up to ignore it.
 To check that Crypto Policies settings are configured correctly, you have to examine the OpenSSL config file
-available under <code>/etc/pki/tls/openssl.cnf</code>.
+available under <code>/etc/ssl/openssl.cnf</code>.
 This file has the <code>ini</code> format, and it enables crypto policy support
 if there is a <code>[ crypto_policy ]</code> section that contains the <code>.include /etc/crypto-policies/back-ends/opensslcnf.config</code> directive.</td>
 </tr>
@@ -325,7 +325,7 @@ the SUSE Linux Enterprise 15 Documentation web site:<br>
 
     
     <a href="https://www.suse.com/documentation/sled-12/book_security/data/sec_security_cryptofs_y2.html">https://www.suse.com/documentation/sled-12/book_security/data/sec_security_cryptofs_y2.html</a>
-</td>
+.</td>
 </tr>
 <tr>
 <td>CCE-85639-3</td>
@@ -1324,9 +1324,14 @@ system, interactive boot can be enabled by providing a <code>1</code>,
 <code>yes</code>, <code>true</code>, or <code>on</code> value to the
 <code>systemd.confirm_spawn</code> kernel argument in <code>/etc/default/grub</code>.
 Remove any instance of <pre>systemd.confirm_spawn=(1|yes|true|on)</pre> from
-the kernel arguments in that file to disable interactive boot. It is also
-required to change the runtime configuration, run:
-<pre>/sbin/grubby --update-kernel=ALL --remove-args="systemd.confirm_spawn"</pre>
+the kernel arguments in that file to disable interactive boot.
+Recovery booting must also be disabled. Confirm that
+<code>GRUB_DISABLE_RECOVERY=true</code> is set in  <code>/etc/default/grub</code>.
+It is also required to change the runtime configuration, run:
+
+<pre>/usr/bin/grub2-editenv - unset systemd.confirm_spawn&gt;</pre>
+
+<pre>grub2-mkconfig -o /boot/grub2/grub.cfg</pre>
 </td>
 </tr>
 <tr>
@@ -2896,11 +2901,11 @@ of the <code>semanage</code> command for all users and root. If the <code>auditd
 daemon is configured to use the <code>augenrules</code> program to read audit rules
 during daemon startup (the default), add the following lines to a file with suffix
 <code>.rules</code> in the directory <code>/etc/audit/rules.d</code>:
-<pre>-a always,exit -F path=/usr/sbin/semanage -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 If the <code>auditd</code> daemon is configured to use the <code>auditctl</code>
 utility to read audit rules during daemon startup, add the following lines to
 <code>/etc/audit/audit.rules</code> file:
-<pre>-a always,exit -F path=/usr/sbin/semanage -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/semanage -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 </td>
 </tr>
 <tr>
@@ -2911,11 +2916,11 @@ of the <code>setsebool</code> command for all users and root. If the <code>audit
 daemon is configured to use the <code>augenrules</code> program to read audit rules
 during daemon startup (the default), add the following lines to a file with suffix
 <code>.rules</code> in the directory <code>/etc/audit/rules.d</code>:
-<pre>-a always,exit -F path=/usr/sbin/setsebool -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/setsebool -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 If the <code>auditd</code> daemon is configured to use the <code>auditctl</code>
 utility to read audit rules during daemon startup, add the following lines to
 <code>/etc/audit/audit.rules</code> file:
-<pre>-a always,exit -F path=/usr/sbin/setsebool -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/setsebool -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 </td>
 </tr>
 <tr>
@@ -3670,11 +3675,11 @@ privileged commands for all users and root. If the <code>auditd</code> daemon is
 configured to use the <code>augenrules</code> program to read audit rules during
 daemon startup (the default), add a line of the following form to a file with
 suffix <code>.rules</code> in the directory <code>/etc/audit/rules.d</code>:
-<pre>-a always,exit -F path=/usr/sbin/postdrop -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/postdrop -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 If the <code>auditd</code> daemon is configured to use the <code>auditctl</code>
 utility to read audit rules during daemon startup, add a line of the following
 form to <code>/etc/audit/audit.rules</code>:
-<pre>-a always,exit -F path=/usr/sbin/postdrop -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/postdrop -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 </td>
 </tr>
 <tr>
@@ -3685,11 +3690,11 @@ privileged commands for all users and root. If the <code>auditd</code> daemon is
 configured to use the <code>augenrules</code> program to read audit rules during
 daemon startup (the default), add a line of the following form to a file with
 suffix <code>.rules</code> in the directory <code>/etc/audit/rules.d</code>:
-<pre>-a always,exit -F path=/usr/sbin/postqueue -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/postqueue -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 If the <code>auditd</code> daemon is configured to use the <code>auditctl</code>
 utility to read audit rules during daemon startup, add a line of the following
 form to <code>/etc/audit/audit.rules</code>:
-<pre>-a always,exit -F path=/usr/sbin/postqueue -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/postqueue -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 </td>
 </tr>
 <tr>
@@ -3831,11 +3836,11 @@ privileged commands for all users and root. If the <code>auditd</code> daemon is
 configured to use the <code>augenrules</code> program to read audit rules during
 daemon startup (the default), add a line of the following form to a file with
 suffix <code>.rules</code> in the directory <code>/etc/audit/rules.d</code>:
-<pre>-a always,exit -F path=/usr/sbin/userhelper -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/userhelper -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 If the <code>auditd</code> daemon is configured to use the <code>auditctl</code>
 utility to read audit rules during daemon startup, add a line of the following
 form to <code>/etc/audit/audit.rules</code>:
-<pre>-a always,exit -F path=/usr/sbin/userhelper -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/userhelper -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 </td>
 </tr>
 <tr>
@@ -5038,7 +5043,7 @@ The configuration that was used to build kernel is available at <code>/boot/conf
 </tr>
 <tr>
 <td></td>
-<td>Enale SLUB debugging support</td>
+<td>Enable SLUB debugging support</td>
 <td>SLUB has extensive debug support features and this allows the allocator validation checking to
 be enabled.
 
@@ -5046,8 +5051,7 @@ The configuration that was used to build kernel is available at <code>/boot/conf
     To check the configuration value for <code>CONFIG_SLUB_DEBUG</code>, run the following command:
     <code>grep CONFIG_SLUB_DEBUG /boot/config-*</code>
     
-    Configs with value 'n' are not explicitly set in the file, so either commented lines or no
-    lines should be returned.
+    For each kernel installed, a line with value "y" should be returned.
     </td>
 </tr>
 <tr>
@@ -5664,7 +5668,7 @@ Issue the following command to make the changes take effect:
 </tr>
 <tr>
 <td>CCE-83283-2</td>
-<td>Enable Kernel Parameter to Use TCP Syncookies on IPv4 Interfaces</td>
+<td>Enable Kernel Parameter to Use TCP Syncookies on Network Interfaces</td>
 <td>To set the runtime status of the <code>net.ipv4.tcp_syncookies</code> kernel parameter, run the following command: <pre>$ sudo sysctl -w net.ipv4.tcp_syncookies=1</pre>
 To make sure that the setting is persistent, add the following line to a file in the directory <code>/etc/sysctl.d</code>: <pre>net.ipv4.tcp_syncookies = 1</pre>
 </td>
@@ -5742,13 +5746,12 @@ kernel module from being loaded, add the following line to a file in the directo
 <tr>
 <td>CCE-83286-5</td>
 <td>Deactivate Wireless Network Interfaces</td>
-<td>Deactivating wireless network interfaces should prevent
-normal usage of the wireless capability.
+<td>Deactivating wireless network interfaces should prevent normal usage of the wireless
+capability.
 <br><br>
 
-Configure the system to disable wireless network interfaces by issuing the
-following command for every active <code>&lt;WIFI-INTERFACE&gt;</code> in the
-system:
+Configure the system to disable wireless network interfaces by issuing the following
+command for every active <code>&lt;WIFI-INTERFACE&gt;</code> in the system:
 <pre>$ sudo wicked ifdown &lt;WIFI-INTERFACE&gt;</pre>
 Also remove the configuration files for every wifi adapter from
 <code>/etc/wicked/ifconfig/&lt;WIFI-INTERFACE&gt;.xml</code> to prevent future
@@ -5955,7 +5958,7 @@ To properly set the permissions of <code>/etc/security/opasswd</code>, run the c
 <tr>
 <td></td>
 <td>Verify User Who Owns Backup shadow File</td>
-<td> To properly set the group owner of <code>/etc/shadow-</code>, run the command: <pre>$ sudo chgrp root /etc/shadow-</pre>
+<td> To properly set the group owner of <code>/etc/shadow-</code>, run the command: <pre>$ sudo chgrp shadow /etc/shadow-</pre>
 </td>
 </tr>
 <tr>
@@ -5979,7 +5982,7 @@ To properly set the permissions of <code>/etc/security/opasswd</code>, run the c
 <tr>
 <td>CCE-85808-4</td>
 <td>Verify Group Who Owns shadow File</td>
-<td> To properly set the group owner of <code>/etc/shadow</code>, run the command: <pre>$ sudo chgrp root /etc/shadow</pre>
+<td> To properly set the group owner of <code>/etc/shadow</code>, run the command: <pre>$ sudo chgrp shadow /etc/shadow</pre>
 </td>
 </tr>
 <tr>
